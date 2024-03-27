@@ -4,7 +4,7 @@ StockFlow is a sophisticated and agile inventory management system designed to s
 
 ## Table of Contents
 - [Features](#features)
-- [Technology Stack](#technology-stack)
+- [Technology Stack](#Technologies Used)
 - [Installation](#installation)
   - [Requirements](#requirements)
 - [Contributing](#contributing)
