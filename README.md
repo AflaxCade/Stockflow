@@ -4,8 +4,8 @@ StockFlow is a sophisticated and agile inventory management system designed to s
 
 ## Table of Contents
 - [Features](#features)
-- [Technology Stack](#Technologies-Used)
-- [Installation](#installation)
+- [Technology Used](#Technologies-Used)
+- [Installation](#Installation)
   - [Requirements](#Requirements)
 - [Contributing](#contributing)
 - [License](#license)
@@ -42,7 +42,7 @@ StockFlow is a sophisticated and agile inventory management system designed to s
 - SQLite: A lightweight and easy-to-use relational database used for storing contact information.
 - JWT (JSON Web Tokens): A standard for securely transmitting information between parties as a JSON object.
 
-## Prerequisites Installation
+## Installation
 
 ### Requirements
 
