@@ -472,3 +472,112 @@ def delete_category(current_user, category_id):
     db.session.delete(category)
     db.session.commit()
     return jsonify({"message": "Category deleted"}), 200
+
+
+# This route will return a product by their ID
+@app.route("/product/<product_id>", methods=["GET"])
+@token_required
+def get_product(current_user, product_id):
+    product = Products.query.filter_by(product_id=product_id).first()
+    if not product:
+        return jsonify({"message": "Product not found"}), 404
+    product_data = {}
+    product_data["product_id"] = product.product_id
+    product_data["product_name"] = product.product_name
+    product_data["product_description"] = product.product_description
+    product_data["product_price"] = product.product_price
+    product_data["product_quantity"] = product.product_quantity
+    product_data["category_id"] = product.category_id
+    product_data["supplier_id"] = product.supplier_id
+    product_data["date"] = product.date
+    return jsonify(product_data), 200
+
+
+# This route will return all products
+@app.route("/products", methods=["GET"])
+@token_required
+def get_all_products(current_user):
+    products = Products.query.all()
+    output = []
+    for product in products:
+        product_data = {}
+        product_data["product_id"] = product.product_id
+        product_data["product_name"] = product.product_name
+        product_data["product_description"] = product.product_description
+        product_data["product_price"] = product.product_price
+        product_data["product_quantity"] = product.product_quantity
+        product_data["category_id"] = product.category_id
+        product_data["supplier_id"] = product.supplier_id
+        product_data["date"] = product.date
+        output.append(product_data)
+    return jsonify(output), 200
+
+
+# This route will create a new product
+@app.route("/products", methods=["POST"])
+@token_required
+def create_product(current_user):
+    data = request.get_json()
+    product_name=data["product_name"]
+    product_description=data["product_description"]
+    product_price=data["product_price"]
+    product_quantity=data["product_quantity"]
+    category_id=data["category_id"]
+    supplier_id=data["supplier_id"]
+
+    if not product_name or not product_description or not product_price or not product_quantity or not category_id or not supplier_id:
+        return jsonify({"message": "You must include a name, description, price, quantity, category ID and supplier ID"}), 400
+
+    existing_product = Products.query.filter_by(product_name=product_name).first()
+    if existing_product:
+        return jsonify({"message": "A product with this name already exists"}), 400
+    
+    new_product = Products(
+        product_name=product_name,
+        product_description=product_description,
+        product_price=product_price,
+        product_quantity=product_quantity,
+        category_id=category_id,
+        supplier_id=supplier_id)
+    db.session.add(new_product)
+    db.session.commit()
+    return jsonify({"message": "New product created"}), 201
+
+
+# This route will update a product
+@app.route("/product/<product_id>", methods=["PUT"])
+@token_required
+def update_product(current_user, product_id):
+    product = Products.query.filter_by(product_id=product_id).first()
+    if not product:
+        return jsonify({"message": "Product not found"}), 404
+    data = request.get_json()
+    if "product_name" in data and data["product_name"]:
+        product.product_name = data["product_name"]
+    if "product_description" in data and data["product_description"]:
+        product.product_description = data["product_description"]
+    if "product_price" in data and data["product_price"]:
+        product.product_price = data["product_price"]
+    if "product_quantity" in data and data["product_quantity"]:
+        product.product_quantity = data["product_quantity"]
+    if "category_id" in data and data["category_id"]:
+        product.category_id = data["category_id"]
+    if "supplier_id" in data and data["supplier_id"]:
+        product.supplier_id = data["supplier_id"]
+    if not product.product_name or not product.product_description or not product.product_price or not product.product_quantity or not product.category_id or not product.supplier_id:
+        return jsonify({"message": "Missing required value"}), 400
+
+    db.session.commit()
+    return jsonify({"message": "Product updated"}), 200
+
+
+# This route will delete a product
+@app.route("/product/<product_id>", methods=["DELETE"])
+@token_required
+def delete_product(current_user, product_id):
+    product = Products.query.filter_by(product_id=product_id).first()
+    if not product:
+        return jsonify({"message": "Product not found"}), 404
+    db.session.delete(product)
+    db.session.commit()
+    return jsonify({"message": "Product deleted"}), 200
