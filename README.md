@@ -332,6 +332,66 @@ Endpoints related to managing suppliers.
 
 [For more examples about Supplier management endpoints click here](https://documenter.getpostman.com/view/33172740/2sA35EZNgY)
 
+## Category Management
+
+Endpoints related to managing categories.
+
+### Get Category by ID
+
+- **URL**: `/category/<category_id>`
+- **Method**: `GET`
+- **Description**: Retrieves category details by its ID.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns category details in JSON format.
+
+### Get All Categories
+
+- **URL**: `/categories`
+- **Method**: `GET`
+- **Description**: Retrieves details of all categories.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns a list of categories in JSON format.
+
+### Create Category
+
+- **URL**: `/categories`
+- **Method**: `POST`
+- **Description**: Creates a new category.
+- **Request Headers**: Requires a valid JWT token.
+- **Request Body**:
+  ```json
+  {
+      "category_name": "string",
+      "category_description": "string"
+  }
+  ```
+- **Response**: Returns a message indicating success or failure.
+
+### Update Category
+
+- **URL**: `/category/<category_id>`
+- **Method**: `PUT`
+- **Description**: Updates category details.
+- **Request Headers**: Requires a valid JWT token.
+- **Request Body**:
+  ```json
+  {
+      "category_name": "string",
+      "category_description": "string"
+  }
+  ```
+- **Response**: Returns a message indicating success or failure.
+
+### Delete Category
+
+- **URL**: `/category/<category_id>`
+- **Method**: `DELETE`
+- **Description**: Deletes a category.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns a message indicating success or failure.
+
+[For more examples about Category management endpoints click here](https://documenter.getpostman.com/view/33172740/2sA35EZhZ2)
+
 ## Contributing
 
 If you'd like to contribute to this project, please follow these steps:
