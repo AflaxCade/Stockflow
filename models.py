@@ -38,3 +38,11 @@ class Suppliers(db.Model):
     city = db.Column(db.String(20), nullable=False)
     zip_code = db.Column(db.String(20), nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+
+# Create a class for the Categories table
+class Categories(db.Model):
+    category_id = db.Column(db.Integer, primary_key=True)
+    category_name = db.Column(db.String(50), nullable=False)
+    category_description = db.Column(db.String(100), nullable=False)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
