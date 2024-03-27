@@ -1,6 +1,15 @@
 # Stockflow
 StockFlow is a sophisticated and agile inventory management system designed to streamline and optimize the tracking, control, and organization of products within a business. Leveraging the power of Python Flask, StockFlow provides a seamless and efficient experience through its RESTful API, offering a comprehensive solution for businesses of all sizes.
 
+## Technologies Used
+
+- Flask: A Python web framework for building web applications.
+- UUID: A module for generating universally unique identifiers.
+- Bcrypt: A password hashing function used for securely storing user passwords.
+- SQLAlchemy: A Python SQL toolkit and Object-Relational Mapping (ORM) library.
+- RESTful API: Enables communication and data exchange between the frontend and backend.
+- SQLite: A lightweight and easy-to-use relational database used for storing contact information.
+- JWT (JSON Web Tokens): A standard for securely transmitting information between parties as a JSON object.
 
 ## Prerequisites Installation
 
