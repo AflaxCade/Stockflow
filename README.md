@@ -102,7 +102,95 @@ The server will start on `http://localhost:5000`.
 
 The application provides several API endpoints for managing resources. You will need to use a tool like Postman or curl to interact with these endpoints.
 
-**Note:** Some endpoints require a JWT token for authentication. You can obtain a token by logging in.
+**Note:** Endpoints require a JWT token for authentication. You can obtain a token by logging in.
+
+This document outlines the endpoints available in the API along with their functionalities.
+
+## Authentication
+
+The following endpoint handles user authentication:
+
+### Login
+
+- **URL**: `/login`
+- **Method**: `POST`
+- **Description**: Authenticates users and generates a JWT token.
+- **Request Body**:
+  ```json
+  {
+      "username": "admin",
+      "password": "admin"
+  }
+  ```
+- **Response**: Returns a JWT token upon successful authentication.
+
+## User Management
+
+Endpoints related to managing users.
+
+### Get User by ID
+
+- **URL**: `/user/<public_id>`
+- **Method**: `GET`
+- **Description**: Retrieves user details by their ID.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns user details in JSON format.
+
+### Get All Users
+
+- **URL**: `/users`
+- **Method**: `GET`
+- **Description**: Retrieves details of all users.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns a list of users in JSON format.
+
+### Create User
+
+- **URL**: `/user`
+- **Method**: `POST`
+- **Description**: Creates a new user.
+- **Request Headers**: Requires a valid JWT token.
+- **Request Body**:
+  ```json
+  {
+      "user_name": "string",
+      "user_password": "string",
+      "user_email": "string"
+  }
+  ```
+- **Response**: Returns a message indicating success or failure.
+
+### Update User
+
+- **URL**: `/user/<public_id>`
+- **Method**: `PUT`
+- **Description**: Updates user details.
+- **Request Headers**: Requires a valid JWT token.
+- **Request Body**:
+  ```json
+  {
+      "user_name": "string",
+      "user_password": "string",
+      "user_email": "string"
+  }
+  ```
+- **Response**: Returns a message indicating success or failure.
+
+### Promote User to Admin
+
+- **URL**: `/promote/<public_id>`
+- **Method**: `PUT`
+- **Description**: Promotes a user to admin status.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns a message indicating success or failure.
+
+### Delete User
+
+- **URL**: `/user/<public_id>`
+- **Method**: `DELETE`
+- **Description**: Deletes a user.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns a message indicating success or failure.
 
 ## Contributing
 
