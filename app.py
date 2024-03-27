@@ -581,3 +581,148 @@ def delete_product(current_user, product_id):
     db.session.delete(product)
     db.session.commit()
     return jsonify({"message": "Product deleted"}), 200
+
+
+# This route will return an order by its ID
+@app.route('/order/<order_id>', methods=['GET'])
+@token_required
+def get_order(current_user, order_id):
+    order = Orders.query.filter_by(order_id=order_id).first()
+    if not order:
+        return jsonify({'message': 'Order not found'}), 404
+
+    order_dict = {
+        'order_id': order.order_id,
+        'customer_id': order.customer_id,
+        'order_date': order.order_date,
+        'expected_delivery_date': order.expected_delivery_date,
+        'status': order.status,
+        'order_details': []
+    }
+
+    order_details = OrderDetails.query.filter_by(order_id=order.order_id).all()
+    for detail in order_details:
+        detail_dict = {
+            'order_detail_id': detail.order_detail_id,
+            'product_id': detail.product_id,
+            'quantity_ordered': detail.quantity_ordered,
+            'unit_price': detail.unit_price,
+            'total_amount': detail.total_amount,
+            'date': detail.date
+        }
+        order_dict['order_details'].append(detail_dict)
+
+    return jsonify(order_dict), 200
+
+
+# This route will return all orders
+@app.route('/orders', methods=['GET'])
+@token_required
+def get_orders(current_user):
+    orders = Orders.query.all()
+    order_list = []
+
+    for order in orders:
+        order_dict = {
+            'order_id': order.order_id,
+            'customer_id': order.customer_id,
+            'order_date': order.order_date,
+            'expected_delivery_date': order.expected_delivery_date,
+            'status': order.status,
+            'order_details': []
+        }
+
+        order_details = OrderDetails.query.filter_by(order_id=order.order_id).all()
+        for detail in order_details:
+            detail_dict = {
+                'order_detail_id': detail.order_detail_id,
+                'product_id': detail.product_id,
+                'quantity_ordered': detail.quantity_ordered,
+                'unit_price': detail.unit_price,
+                'total_amount': detail.total_amount,
+                'date': detail.date
+            }
+            order_dict['order_details'].append(detail_dict)
+
+        order_list.append(order_dict)
+
+    return jsonify(order_list), 200
+
+
+# This route will create a new order
+@app.route('/orders', methods=['POST'])
+@token_required
+def create_order(current_user):
+    data = request.get_json()
+
+    required_fields = ['customer_id', 'order_date', 'expected_delivery_date', 'status', 'order_details']
+    for field in required_fields:
+        if field not in data:
+            return jsonify({'message': f'Missing required field: {field}'}), 400
+
+    customer_id = data['customer_id']
+    order_date = datetime.strptime(data['order_date'], '%Y-%m-%d %H:%M:%S')
+    expected_delivery_date = datetime.strptime(data['expected_delivery_date'], '%Y-%m-%d %H:%M:%S')
+    status = data['status']
+    order_details = data['order_details']
+
+    order = Orders(
+        customer_id=customer_id,
+        order_date=order_date,
+        expected_delivery_date=expected_delivery_date,
+        status=status
+    )
+    db.session.add(order)
+    db.session.commit()
+
+    for detail in order_details:
+
+        required_detail_fields = ['product_id', 'quantity_ordered', 'unit_price', 'total_amount']
+        for field in required_detail_fields:
+            if field not in detail:
+                return jsonify({'message': f'Missing required field in order details: {field}'}), 400
+        
+        product_id = detail['product_id']
+        quantity_ordered = detail['quantity_ordered']
+        unit_price = detail['unit_price']
+        total_amount = detail['total_amount']
+
+        order_detail = OrderDetails(
+            order_id=order.order_id,
+            product_id=product_id,
+            quantity_ordered=quantity_ordered,
+            unit_price=unit_price,
+            total_amount=total_amount
+        )
+        db.session.add(order_detail)
+        db.session.commit()
+
+    return jsonify({'message': 'Order created successfully'}), 201
+
+
+# this route will update an order
+@app.route('/order/<order_id>', methods=['PUT'])
+@token_required
+def update_order(current_user, order_id):
+    order = Orders.query.filter_by(order_id=order_id).first()
+    if not order:
+        return jsonify({'message': 'Order not found'}), 404
+
+    data = request.get_json()
+
+    if 'customer_id' in data:
+        order.customer_id = data['customer_id']
+    if 'order_date' in data:
+        order.order_date = datetime.strptime(data['order_date'], '%Y-%m-%d %H:%M:%S')
+    if 'expected_delivery_date' in data:
+        order.expected_delivery_date = datetime.strptime(data['expected_delivery_date'], '%Y-%m-%d %H:%M:%S')
+    if 'status' in data:
+        order.status = data['status']
+
+    if not order.customer_id or not order.order_date or not order.expected_delivery_date or not order.status:
+        return jsonify({'message': 'Missing required value'}), 400
+
+    db.session.commit()
+
+    return jsonify({'message': 'Order updated successfully'}), 200
+
