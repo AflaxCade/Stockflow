@@ -4,23 +4,23 @@ StockFlow is a sophisticated and agile inventory management system designed to s
 
 ## Features
 
-### User Management
+#### User Management
 - Authentication and authorization using JWT tokens.
 - User CRUD operations: Create, Read, Update, Delete.
 
-### Customer Management
+#### Customer Management
 - Customer CRUD operations: Create, Read, Update, Delete.
 
-### Supplier Management
+#### Supplier Management
 - Supplier CRUD operations: Create, Read, Update, Delete.
 
-### Category Management
+#### Category Management
 - Category CRUD operations: Create, Read, Update, Delete.
 
-### Product Management
+#### Product Management
 - Product CRUD operations: Create, Read, Update, Delete.
 
-### Order Management
+#### Order Management
 - Order CRUD operations: Create, Read, Update.
 - Order Detail CRUD operations: Read, Update.
 
