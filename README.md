@@ -192,6 +192,8 @@ Endpoints related to managing users.
 - **Request Headers**: Requires a valid JWT token.
 - **Response**: Returns a message indicating success or failure.
 
+- **For more details**: [Visit](https://documenter.getpostman.com/view/33172740/2sA35EYhZi)..
+
 ## Contributing
 
 If you'd like to contribute to this project, please follow these steps:
