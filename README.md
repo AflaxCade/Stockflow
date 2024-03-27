@@ -260,6 +260,78 @@ Endpoints related to managing customers.
 
 [For more examples about Customer management endpoints click here](https://documenter.getpostman.com/view/33172740/2sA35D43An)
 
+## Supplier Management
+
+Endpoints related to managing suppliers.
+
+### Get Supplier by ID
+
+- **URL**: `/supplier/<supplier_id>`
+- **Method**: `GET`
+- **Description**: Retrieves supplier details by their ID.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns supplier details in JSON format.
+
+### Get All Suppliers
+
+- **URL**: `/suppliers`
+- **Method**: `GET`
+- **Description**: Retrieves details of all suppliers.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns a list of suppliers in JSON format.
+
+### Create Supplier
+
+- **URL**: `/suppliers`
+- **Method**: `POST`
+- **Description**: Creates a new supplier.
+- **Request Headers**: Requires a valid JWT token.
+- **Request Body**:
+  ```json
+  {
+      "supplier_name": "string",
+      "supplier_email": "string",
+      "supplier_phone": "string",
+      "supplier_address": "string",
+      "country": "string",
+      "state": "string",
+      "city": "string",
+      "zip_code": "string"
+  }
+  ```
+- **Response**: Returns a message indicating success or failure.
+
+### Update Supplier
+
+- **URL**: `/supplier/<supplier_id>`
+- **Method**: `PUT`
+- **Description**: Updates supplier details.
+- **Request Headers**: Requires a valid JWT token.
+- **Request Body**:
+  ```json
+  {
+      "supplier_name": "string",
+      "supplier_email": "string",
+      "supplier_phone": "string",
+      "supplier_address": "string",
+      "country": "string",
+      "state": "string",
+      "city": "string",
+      "zip_code": "string"
+  }
+  ```
+- **Response**: Returns a message indicating success or failure.
+
+### Delete Supplier
+
+- **URL**: `/supplier/<supplier_id>`
+- **Method**: `DELETE`
+- **Description**: Deletes a supplier.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns a message indicating success or failure.
+
+[For more examples about Supplier management endpoints click here](https://documenter.getpostman.com/view/33172740/2sA35EZNgY)
+
 ## Contributing
 
 If you'd like to contribute to this project, please follow these steps:
