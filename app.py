@@ -270,3 +270,121 @@ def delete_customer(current_user, customer_id):
     return jsonify({"message": "Customer deleted"}), 200
 
 
+# This route will return a supplier by their ID
+@app.route("/supplier/<supplier_id>", methods=["GET"])
+@token_required
+def get_supplier(current_user, supplier_id):
+    supplier = Suppliers.query.filter_by(supplier_id=supplier_id).first()
+    if not supplier:
+        return jsonify({"message": "Supplier not found"}), 404
+    supplier_data = {}
+    supplier_data["supplier_id"] = supplier.supplier_id
+    supplier_data["supplier_name"] = supplier.supplier_name
+    supplier_data["supplier_email"] = supplier.supplier_email
+    supplier_data["supplier_phone"] = supplier.supplier_phone
+    supplier_data["supplier_address"] = supplier.supplier_address
+    supplier_data["country"] = supplier.country
+    supplier_data["state"] = supplier.state
+    supplier_data["city"] = supplier.city
+    supplier_data["zip_code"] = supplier.zip_code
+    supplier_data["date"] = supplier.date
+    return jsonify(supplier_data), 200
+
+
+# This route will return all suppliers
+@app.route("/suppliers", methods=["GET"])
+@token_required
+def get_all_suppliers(current_user):
+    suppliers = Suppliers.query.all()
+    output = []
+    for supplier in suppliers:
+        supplier_data = {}
+        supplier_data["supplier_id"] = supplier.supplier_id
+        supplier_data["supplier_name"] = supplier.supplier_name
+        supplier_data["supplier_email"] = supplier.supplier_email
+        supplier_data["supplier_phone"] = supplier.supplier_phone
+        supplier_data["supplier_address"] = supplier.supplier_address
+        supplier_data["country"] = supplier.country
+        supplier_data["state"] = supplier.state
+        supplier_data["city"] = supplier.city
+        supplier_data["zip_code"] = supplier.zip_code
+        supplier_data["date"] = supplier.date
+        output.append(supplier_data)
+    return jsonify(output), 200
+
+
+# This route will create a new supplier
+@app.route("/suppliers", methods=["POST"])
+@token_required
+def create_supplier(current_user):
+    data = request.get_json()
+    supplier_name=data["supplier_name"]
+    supplier_email=data["supplier_email"]
+    supplier_phone=data["supplier_phone"]
+    supplier_address=data["supplier_address"]
+    country=data["country"]
+    state=data["state"]
+    city=data["city"]
+    zip_code=data["zip_code"]
+
+    if not supplier_name or not supplier_email or not supplier_phone or not supplier_address or not country or not state or not city or not zip_code:
+        return jsonify({"message": "You must include a name, email, phone, address, country, state, city and zip code"}), 400
+
+    existing_supplier = Suppliers.query.filter_by(supplier_email=supplier_email).first()
+    if existing_supplier:
+        return jsonify({"message": "A supplier with this email already exists"}), 400
+    
+    new_supplier = Suppliers(
+        supplier_name=supplier_name,
+        supplier_email=supplier_email,
+        supplier_phone=supplier_phone,
+        supplier_address=supplier_address,
+        country=country,
+        state=state,
+        city=city,
+        zip_code=zip_code)
+    db.session.add(new_supplier)
+    db.session.commit()
+    return jsonify({"message": "New supplier created"}), 201
+
+
+# This route will update a supplier
+@app.route("/supplier/<supplier_id>", methods=["PUT"])
+@token_required
+def update_supplier(current_user, supplier_id):
+    supplier = Suppliers.query.filter_by(supplier_id=supplier_id).first()
+    if not supplier:
+        return jsonify({"message": "Supplier not found"}), 404
+    data = request.get_json()
+    if "supplier_name" in data:
+        supplier.supplier_name = data["supplier_name"]
+    if "supplier_email" in data:
+        supplier.supplier_email = data["supplier_email"]
+    if "supplier_phone" in data:
+        supplier.supplier_phone = data["supplier_phone"]
+    if "supplier_address" in data:
+        supplier.supplier_address = data["supplier_address"]
+    if "country" in data:
+        supplier.country = data["country"]
+    if "state" in data:
+        supplier.state = data["state"]
+    if "city" in data:
+        supplier.city = data["city"]
+    if "zip_code" in data:
+        supplier.zip_code = data["zip_code"]
+    if not supplier.supplier_name or not supplier.supplier_email or not supplier.supplier_phone or not supplier.supplier_address or not supplier.country or not supplier.state or not supplier.city or not supplier.zip_code:
+        return jsonify({"message": "Missing required value"}), 400
+    db.session.commit()
+    return jsonify({"message": "Supplier updated"}), 200
+
+
+# This route will delete a supplier
+@app.route("/supplier/<supplier_id>", methods=["DELETE"])
+@token_required
+def delete_supplier(current_user,supplier_id):
+    supplier = Suppliers.query.filter_by(supplier_id=supplier_id).first()
+    if not supplier:
+        return jsonify({"message": "Supplier not found"}), 404
+    db.session.delete(supplier)
+    db.session.commit()
+    return jsonify({"message": "Supplier deleted"}), 200
