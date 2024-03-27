@@ -46,3 +46,15 @@ class Categories(db.Model):
     category_name = db.Column(db.String(50), nullable=False)
     category_description = db.Column(db.String(100), nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+
+# Create a class for the Products table
+class Products(db.Model):
+    product_id = db.Column(db.Integer, primary_key=True)
+    product_name = db.Column(db.String(100), nullable=False)
+    product_description = db.Column(db.String(100), nullable=False)
+    product_price = db.Column(db.Float, nullable=False)
+    product_quantity = db.Column(db.Integer, nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.category_id'), nullable=False)
+    supplier_id = db.Column(db.Integer, db.ForeignKey('suppliers.supplier_id'), nullable=False)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
