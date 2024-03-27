@@ -1,5 +1,28 @@
 # Stockflow
+
 StockFlow is a sophisticated and agile inventory management system designed to streamline and optimize the tracking, control, and organization of products within a business. Leveraging the power of Python Flask, StockFlow provides a seamless and efficient experience through its RESTful API, offering a comprehensive solution for businesses of all sizes.
+
+## Features
+
+### User Management
+- Authentication and authorization using JWT tokens.
+- User CRUD operations: Create, Read, Update, Delete.
+
+### Customer Management
+- Customer CRUD operations: Create, Read, Update, Delete.
+
+### Supplier Management
+- Supplier CRUD operations: Create, Read, Update, Delete.
+
+### Category Management
+- Category CRUD operations: Create, Read, Update, Delete.
+
+### Product Management
+- Product CRUD operations: Create, Read, Update, Delete.
+
+### Order Management
+- Order CRUD operations: Create, Read, Update.
+- Order Detail CRUD operations: Read, Update.
 
 ## Technologies Used
 
