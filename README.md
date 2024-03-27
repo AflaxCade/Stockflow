@@ -124,6 +124,8 @@ The following endpoint handles user authentication:
   ```
 - **Response**: Returns a JWT token upon successful authentication.
 
+[For more examples about login endpoints click here](https://documenter.getpostman.com/view/33172740/2sA35EZ2bC)
+
 ## User Management
 
 Endpoints related to managing users.
