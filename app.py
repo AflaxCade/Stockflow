@@ -388,3 +388,87 @@ def delete_supplier(current_user,supplier_id):
     db.session.delete(supplier)
     db.session.commit()
     return jsonify({"message": "Supplier deleted"}), 200
+
+
+# This route will return a category by their ID
+@app.route("/category/<category_id>", methods=["GET"])
+@token_required
+def get_category(current_user, category_id):
+    category = Categories.query.filter_by(category_id=category_id).first()
+    if not category:
+        return jsonify({"message": "Category not found"}), 404
+    category_data = {}
+    category_data["category_id"] = category.category_id
+    category_data["category_name"] = category.category_name
+    category_data["category_description"] = category.category_description
+    category_data["date"] = category.date
+    return jsonify(category_data), 200
+
+
+# This route will return all categories
+@app.route("/categories", methods=["GET"])
+@token_required
+def get_all_categories(current_user):
+    categories = Categories.query.all()
+    output = []
+    for category in categories:
+        category_data = {}
+        category_data["category_id"] = category.category_id
+        category_data["category_name"] = category.category_name
+        category_data["category_description"] = category.category_description
+        category_data["date"] = category.date
+        output.append(category_data)
+    return jsonify(output), 200
+
+
+# This route will create a new category
+@app.route("/categories", methods=["POST"])
+@token_required
+def create_category(current_user):
+    data = request.get_json()
+    category_name=data["category_name"]
+    category_description=data["category_description"]
+
+    if not category_name or not category_description:
+        return jsonify({"message": "You must include a name and description"}), 400
+
+    existing_category = Categories.query.filter_by(category_name=category_name).first()
+    if existing_category:
+        return jsonify({"message": "A category with this name already exists"}), 400
+    
+    new_category = Categories(
+        category_name=category_name,
+        category_description=category_description)
+    db.session.add(new_category)
+    db.session.commit()
+    return jsonify({"message": "New category created"}), 201
+
+
+# This route will update a category
+@app.route("/category/<category_id>", methods=["PUT"])
+@token_required
+def update_category(current_user, category_id):
+    category = Categories.query.filter_by(category_id=category_id).first()
+    if not category:
+        return jsonify({"message": "Category not found"}), 404
+    data = request.get_json()
+    if "category_name" in data:
+        category.category_name = data["category_name"]
+    if "category_description" in data:
+        category.category_description = data["category_description"]
+    if not category.category_name or not category.category_description:
+        return jsonify({"message": "Missing required value"}), 400
+    db.session.commit()
+    return jsonify({"message": "Category updated"}), 200
+
+
+# This route will delete a category
+@app.route("/category/<category_id>", methods=["DELETE"])
+@token_required
+def delete_category(current_user, category_id):
+    category = Categories.query.filter_by(category_id=category_id).first()
+    if not category:
+        return jsonify({"message": "Category not found"}), 404
+    db.session.delete(category)
+    db.session.commit()
+    return jsonify({"message": "Category deleted"}), 200
