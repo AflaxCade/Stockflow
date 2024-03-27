@@ -24,3 +24,17 @@ class Customers(db.Model):
     customer_phone = db.Column(db.String(20), nullable=False)
     customer_address = db.Column(db.String(100), nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow) 
+
+
+# create a class for the Suppliers table
+class Suppliers(db.Model):
+    supplier_id = db.Column(db.Integer, primary_key=True)
+    supplier_name = db.Column(db.String(100), nullable=False)
+    supplier_email = db.Column(db.String(100), nullable=False, unique=True)
+    supplier_phone = db.Column(db.String(20), nullable=False)
+    supplier_address = db.Column(db.String(100), nullable=False)
+    country = db.Column(db.String(20), nullable=False)
+    state = db.Column(db.String(20), nullable=False)
+    city = db.Column(db.String(20), nullable=False)
+    zip_code = db.Column(db.String(20), nullable=False)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
