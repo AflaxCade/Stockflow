@@ -14,3 +14,13 @@ class Users(db.Model):
 
     def check_password(self, password):
         return bcrypt.check_password_hash(self.user_password, password)
+
+
+# Create a class for the Customers table
+class Customers(db.Model):
+    customer_id = db.Column(db.Integer, primary_key=True)
+    customer_name = db.Column(db.String(100), nullable=False)
+    customer_email = db.Column(db.String(100), nullable=False, unique=True)
+    customer_phone = db.Column(db.String(20), nullable=False)
+    customer_address = db.Column(db.String(100), nullable=False)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow) 
