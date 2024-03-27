@@ -726,3 +726,80 @@ def update_order(current_user, order_id):
 
     return jsonify({'message': 'Order updated successfully'}), 200
 
+
+# This route will return an order detail by its ID
+@app.route('/order_detail/<order_detail_id>', methods=['GET'])
+@token_required
+def get_order_detail(current_user, order_detail_id):
+    order_detail = OrderDetails.query.filter_by(order_detail_id=order_detail_id).first()
+    if not order_detail:
+        return jsonify({'message': 'Order detail not found'}), 404
+
+    detail_dict = {
+        'order_detail_id': order_detail.order_detail_id,
+        'order_id': order_detail.order_id,
+        'product_id': order_detail.product_id,
+        'quantity_ordered': order_detail.quantity_ordered,
+        'unit_price': order_detail.unit_price,
+        'total_amount': order_detail.total_amount,
+        'date': order_detail.date
+    }
+
+    return jsonify(detail_dict), 200
+
+# This route will return all order details
+@app.route('/order_details', methods=['GET'])
+@token_required
+def get_order_details(current_user):
+    order_details = OrderDetails.query.all()
+    output = []
+
+    for detail in order_details:
+        detail_dict = {
+            'order_detail_id': detail.order_detail_id,
+            'order_id': detail.order_id,
+            'product_id': detail.product_id,
+            'quantity_ordered': detail.quantity_ordered,
+            'unit_price': detail.unit_price,
+            'total_amount': detail.total_amount,
+            'date': detail.date
+        }
+        output.append(detail_dict)
+
+    return jsonify(output), 200
+
+
+# this route will update an order detail
+@app.route('/order_detail/<order_detail_id>', methods=['PUT'])
+@token_required
+def update_order_detail(current_user, order_detail_id):
+    order_detail = OrderDetails.query.filter_by(order_detail_id=order_detail_id).first()
+    if not order_detail:
+        return jsonify({'message': 'Order detail not found'}), 404
+
+    data = request.get_json()
+
+    if 'order_id' in data:
+        order_detail.order_id = data['order_id']
+    if 'product_id' in data:
+        order_detail.product_id = data['product_id']
+    if 'quantity_ordered' in data:
+        order_detail.quantity_ordered = data['quantity_ordered']
+    if 'unit_price' in data:
+        order_detail.unit_price = data['unit_price']
+    if 'total_amount' in data:
+        order_detail.total_amount = data['total_amount']
+
+    if not order_detail.order_id or not order_detail.product_id or not order_detail.quantity_ordered or not order_detail.unit_price or not order_detail.total_amount:
+        return jsonify({'message': 'Missing required value'}), 400
+
+    db.session.commit()
+
+    return jsonify({'message': 'Order detail updated successfully'}), 200
+
+
+
+if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
+    app.run(debug=True)
