@@ -258,6 +258,8 @@ Endpoints related to managing customers.
 - **Request Headers**: Requires a valid JWT token.
 - **Response**: Returns a message indicating success or failure.
 
+[For more examples about Customer management endpoints click here](https://documenter.getpostman.com/view/33172740/2sA35D43An)
+
 ## Contributing
 
 If you'd like to contribute to this project, please follow these steps:
