@@ -124,7 +124,7 @@ The following endpoint handles user authentication:
   ```
 - **Response**: Returns a JWT token upon successful authentication.
 
-[For more examples about login endpoints click here](https://documenter.getpostman.com/view/33172740/2sA35EZ2bC)
+[Example about login endpoint click here](https://documenter.getpostman.com/view/33172740/2sA35EZ2bC)
 
 ## User Management
 
@@ -195,6 +195,68 @@ Endpoints related to managing users.
 - **Response**: Returns a message indicating success or failure.
 
 [For more examples about User management endpoints click here](https://documenter.getpostman.com/view/33172740/2sA35EYhZi)
+
+# Customer Management
+
+Endpoints related to managing customers.
+
+### Get Customer by ID
+
+- **URL**: `/customer/<customer_id>`
+- **Method**: `GET`
+- **Description**: Retrieves customer details by their ID.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns customer details in JSON format.
+
+### Get All Customers
+
+- **URL**: `/customers`
+- **Method**: `GET`
+- **Description**: Retrieves details of all customers.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns a list of customers in JSON format.
+
+### Create Customer
+
+- **URL**: `/customers`
+- **Method**: `POST`
+- **Description**: Creates a new customer.
+- **Request Headers**: Requires a valid JWT token.
+- **Request Body**:
+  ```json
+  {
+      "customer_name": "string",
+      "customer_email": "string",
+      "customer_phone": "string",
+      "customer_address": "string"
+  }
+  ```
+- **Response**: Returns a message indicating success or failure.
+
+### Update Customer
+
+- **URL**: `/customer/<customer_id>`
+- **Method**: `PUT`
+- **Description**: Updates customer details.
+- **Request Headers**: Requires a valid JWT token.
+- **Request Body**:
+  ```json
+  {
+      "customer_name": "string",
+      "customer_email": "string",
+      "customer_phone": "string",
+      "customer_address": "string"
+  }
+  ```
+- **Response**: Returns a message indicating success or failure.
+
+### Delete Customer
+
+- **URL**: `/customer/<customer_id>`
+- **Method**: `DELETE`
+- **Description**: Deletes a customer.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns a message indicating success or failure.
 
 ## Contributing
 
