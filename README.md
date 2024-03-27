@@ -2,6 +2,14 @@
 
 StockFlow is a sophisticated and agile inventory management system designed to streamline and optimize the tracking, control, and organization of products within a business. Leveraging the power of Python Flask, StockFlow provides a seamless and efficient experience through its RESTful API, offering a comprehensive solution for businesses of all sizes.
 
+## Table of Contents
+- [Features](#features)
+- [Technology Stack](#technology-stack)
+- [Installation](#installation)
+  - [Requirements](#requirements)
+- [Contributing](#contributing)
+- [License](#license)
+
 ## Features
 
 #### User Management
