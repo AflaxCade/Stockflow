@@ -58,3 +58,24 @@ class Products(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('categories.category_id'), nullable=False)
     supplier_id = db.Column(db.Integer, db.ForeignKey('suppliers.supplier_id'), nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+
+# Create a class for the Orders table
+class Orders(db.Model):
+    order_id = db.Column(db.Integer, primary_key=True)
+    customer_id = db.Column(db.Integer, db.ForeignKey('customers.customer_id'), nullable=False)
+    order_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    expected_delivery_date = db.Column(db.DateTime, nullable=False)
+    status = db.Column(db.String(20), nullable=False)
+    order_details = db.relationship('OrderDetails', backref='order', lazy=True)
+
+
+# Create a class for the OrderDetails table
+class OrderDetails(db.Model):
+    order_detail_id = db.Column(db.Integer, primary_key=True)
+    order_id = db.Column(db.Integer, db.ForeignKey('orders.order_id'), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.product_id'), nullable=False)
+    quantity_ordered  = db.Column(db.Integer, nullable=False)
+    unit_price = db.Column(db.Float, nullable=False)
+    total_amount = db.Column(db.Float, nullable=False)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
