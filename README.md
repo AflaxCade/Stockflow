@@ -7,6 +7,7 @@ StockFlow is a sophisticated and agile inventory management system designed to s
 - [Technology Used](#Technologies-Used)
 - [Installation](#Installation)
   - [Requirements](#Requirements)
+- [API Endpoints](#API-Endpoints)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -98,6 +99,10 @@ python app.py
 The server will start on `http://localhost:5000`.
 
 ## API Endpoints
+
+The application provides several API endpoints for managing resources. You will need to use a tool like Postman or curl to interact with these endpoints.
+
+**Note:** Some endpoints require a JWT token for authentication. You can obtain a token by logging in.
 
 ## Contributing
 
