@@ -392,6 +392,74 @@ Endpoints related to managing categories.
 
 [For more examples about Category management endpoints click here](https://documenter.getpostman.com/view/33172740/2sA35EZhZ2)
 
+# Product Management
+
+Endpoints related to managing products.
+
+### Get Product by ID
+
+- **URL**: `/product/<product_id>`
+- **Method**: `GET`
+- **Description**: Retrieves product details by its ID.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns product details in JSON format.
+
+### Get All Products
+
+- **URL**: `/products`
+- **Method**: `GET`
+- **Description**: Retrieves details of all products.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns a list of products in JSON format.
+
+### Create Product
+
+- **URL**: `/products`
+- **Method**: `POST`
+- **Description**: Creates a new product.
+- **Request Headers**: Requires a valid JWT token.
+- **Request Body**:
+  ```json
+  {
+      "product_name": "string",
+      "product_description": "string",
+      "product_price": "string",
+      "product_quantity": "string",
+      "category_id": "string",
+      "supplier_id": "string"
+  }
+  ```
+  - **Response**: Returns a message indicating success or failure.
+
+  ### Update Product
+
+- **URL**: `/product/<product_id>`
+- **Method**: `PUT`
+- **Description**: Updates product details.
+- **Request Headers**: Requires a valid JWT token.
+- **Request Body**:
+  ```json
+  {
+      "product_name": "string",
+      "product_description": "string",
+      "product_price": "string",
+      "product_quantity": "string",
+      "category_id": "string",
+      "supplier_id": "string"
+  }
+  ```
+- **Response**: Returns a message indicating success or failure.
+
+### Delete Product
+
+- **URL**: `/product/<product_id>`
+- **Method**: `DELETE`
+- **Description**: Deletes a product.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns a message indicating success or failure.
+
+[For more examples about Product management endpoints click here](https://documenter.getpostman.com/view/33172740/2sA35EZi1V)
+
 ## Contributing
 
 If you'd like to contribute to this project, please follow these steps:
