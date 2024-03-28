@@ -429,7 +429,7 @@ Endpoints related to managing products.
       "supplier_id": "string"
   }
   ```
-  - **Response**: Returns a message indicating success or failure.
+- **Response**: Returns a message indicating success or failure.
 
   ### Update Product
 
@@ -459,6 +459,68 @@ Endpoints related to managing products.
 - **Response**: Returns a message indicating success or failure.
 
 [For more examples about Product management endpoints click here](https://documenter.getpostman.com/view/33172740/2sA35EZi1V)
+
+# Order Management
+
+Endpoints related to managing orders.
+
+### Get Order by ID
+
+- **URL**: `/order/<order_id>`
+- **Method**: `GET`
+- **Description**: Retrieves order details by its ID.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns order details in JSON format.
+
+### Get All Orders
+
+- **URL**: `/orders`
+- **Method**: `GET`
+- **Description**: Retrieves details of all orders.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns a list of orders in JSON format.
+
+### Create Order
+
+- **URL**: `/orders`
+- **Method**: `POST`
+- **Description**: Creates a new order.
+- **Request Headers**: Requires a valid JWT token.
+- **Request Body**:
+  ```json
+  {
+      "customer_id": "integer",
+      "order_date": "string (YYYY-MM-DD HH:MM:SS)",
+      "expected_delivery_date": "string (YYYY-MM-DD HH:MM:SS)",
+      "status": "string",
+      "order_details": [
+          {
+              "product_id": "integer",
+              "quantity_ordered": "integer",
+              "unit_price": "float",
+              "total_amount": "float"
+          }
+      ]
+  }
+  ```
+- **Response**: Returns a message indicating success or failure.
+
+### Update Customer
+
+- **URL**: `/order/<order_id>`
+- **Method**: `PUT`
+- **Description**: Updates order details.
+- **Request Headers**: Requires a valid JWT token.
+- **Request Body**:
+  ```json
+  {
+    "customer_id": "integer",
+    "order_date": "string (YYYY-MM-DD HH:MM:SS)",
+    "expected_delivery_date": "string (YYYY-MM-DD HH:MM:SS)",
+    "status": "string"
+  }
+  ```
+- **Response**: Returns a message indicating success or failure.
 
 ## Contributing
 
