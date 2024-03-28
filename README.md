@@ -460,7 +460,7 @@ Endpoints related to managing products.
 
 [For more examples about Product management endpoints click here](https://documenter.getpostman.com/view/33172740/2sA35EZi1V)
 
-# Order Management
+## Order Management
 
 Endpoints related to managing orders.
 
@@ -521,6 +521,8 @@ Endpoints related to managing orders.
   }
   ```
 - **Response**: Returns a message indicating success or failure.
+
+[For more examples about Orders management endpoints click here]()
 
 ## Contributing
 
