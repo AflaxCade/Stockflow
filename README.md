@@ -524,6 +524,47 @@ Endpoints related to managing orders.
 
 [For more examples about Orders management endpoints click here](https://documenter.getpostman.com/view/33172740/2sA35Eaic8)
 
+## Order Detail Management
+
+Endpoints related to managing order details.
+
+### Get Order Detail by ID
+
+- **URL**: `/order_detail/<order_detail_id>`
+- **Method**: `GET`
+- **Description**: Retrieves order detail by its ID.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns order detail in JSON format.
+
+### Get All Order Details
+
+- **URL**: `/order_details`
+- **Method**: `GET`
+- **Description**: Retrieves details of all order details.
+- **Request Headers**: Requires a valid JWT token.
+- **Response**: Returns a list of order details in JSON format.
+
+### Update Order Detail
+
+- **URL**: `/order_detail/<order_detail_id>`
+- **Method**: `PUT`
+- **Description**: Updates order detail.
+- **Request Headers**: Requires a valid JWT token.
+- **Request Body**:
+  ```json
+  {
+      "order_id": "integer",
+      "product_id": "integer",
+      "quantity_ordered": "integer",
+      "unit_price": "float",
+      "total_amount": "float"
+  }
+  ```
+- **Response**: Returns a message indicating success or failure.
+
+[For more examples about Orders management endpoints click here](https://documenter.getpostman.com/view/33172740/2sA35Eb3nX)
+
+
 ## Contributing
 
 If you'd like to contribute to this project, please follow these steps:
